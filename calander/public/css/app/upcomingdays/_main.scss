@@ -1,0 +1,92 @@
+
+
+    .module {
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #dbdbdb;
+        h2 {
+           text-align: left;
+           border-bottom: 2px solid #b71c1c;
+           font-weight: normal;
+           font-family: 'Ek Mukta', open_sansbold;
+       }
+    
+        h2 span {
+           color: #fff;
+           font-size: 17px;
+           padding: 5px 0;
+           display: block;
+       }
+    
+        h2 a {
+           text-decoration: none;
+           padding-left: 10px;
+           color: #b71c1c;
+       }
+       ul.upcomming-days {
+           list-style: none;
+           margin-top: 15px;
+           width: 100% !important;
+           height: 260px;
+           padding: 0;
+              overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+       }
+   
+       ul.upcomming-days li {
+           border-bottom: 1px solid #dbdbdb;
+           padding: 10px;
+           margin-bottom: 10px;
+           //added
+               display: flex;
+    gap: 10px;
+    align-items: flex-start;
+       }
+   
+       ul.upcomming-days li .date {
+           /* font-size: 13px; */
+           float: left;
+           color: #fff;
+           text-align: center;
+           width: 50px;
+           line-height: 20px;
+           background: #2382bc;
+           //added
+               float: none;
+            flex-shrink: 0;
+
+       }
+   
+       ul.upcomming-days li .date span {
+           font-size: 15px;
+           display: block;
+       }
+   
+       ul.upcomming-days li .info {
+           font-size: 13px;
+           line-height: 16px;
+           color: #666;
+           display: table;
+           padding-left: 10px;
+           font-family: 'EK Mukta';
+           font-weight: 400px;
+           //added
+            display: block;
+    padding-left: 0;
+       }
+   
+       ul.upcomming-days li .info span {
+           font-size: 16px;
+           color: #2382bc;
+           display: block;
+           padding-bottom: 5px;
+           line-height: 22px;
+       }
+   
+       ul.upcomming-days li .info span a {
+           text-decoration: none;
+           color: #333;
+       }
+    }
+
+

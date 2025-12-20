@@ -1,0 +1,15 @@
+   .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 15px;
+
+    }
+
+    .items {
+        padding: 0.5em;
+        /* background: #333; */
+        /* color: #fff; */
+
+        border-radius: 8px;
+
+    }

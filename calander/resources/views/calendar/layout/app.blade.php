@@ -534,6 +534,7 @@
         </div>
         @include('calendar.layout.partials.search-nav')
         <div class="container-fluid pt-0">
+            @include('calendar.layout.partials.slider')
             @include('calendar.index')
         </div>
     </div>

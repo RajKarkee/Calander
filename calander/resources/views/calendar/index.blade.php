@@ -1,145 +1,195 @@
-<div class="slider-container">
-    <h2 class="slider-header">Nepali News</h2>
+{{-- <div class="calendar-section"> --}}
 
-    <div class="slider-wrapper">
-        <button class="nav-button nav-prev" id="prevBtn">
-            <i class="fas fa-chevron-left"></i>
-        </button>
+<div class="grid-container">
 
-        <div class="slider-track" id="sliderTrack">
-            <!-- Slide 1 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">नेपालमा तुल्लोदेखिमा सिद्धार्थ देवी भारतको</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #1DA1F2;">🐦</div>
-                        <div class="source-icon" style="background: #FF0000;">📺</div>
-                        <div class="source-icon" style="background: #0077B5;">💼</div>
-                        <div class="source-icon" style="background: #25D366;">📱</div>
-                        <div class="source-count">+3</div>
+    <div class='items'>
+        <div class="module">
+            <h2><span><a href="#upcomingDays" class="headderNew">Upcoming Days</a></span></h2>
+            <ul class="upcomming-days scroll" tableindex="0" style="outline: none;">
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        पुष
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        आज
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        पुष
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        आज
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        आज
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        पुष
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+                <li class ="clearfix">
+                    <div class="date">
+                        <span>५</span>
+                        "पुष"
+                    </div>
+                    <div class="info">
+                        <span>
+                            <a href="#date">तोल ल्होसार</a>
+                        </span>
+                        "आज "
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class='items'>
+        <div class="column9">
+            <div class="calander" id="calendarContainer">
+                <div class="current_date">
+                    <div class="dropdown">
+                        <form action="#" method="GET" name="search_form" onsubmit="return false;">
+                            <a href ="#" class="prev icon-flipped newArrow arrowLeft">Prev</a>
+                            <select name="year" id="selectYear" class="calanderSelect SelectYear timeSelect"
+                                onchange="changetime();"
+                                style="background-image:url('../images/icon/down.png');background-repeat:no-repeat;background-position-x:92%;background-position-y:7px;border-radius:2px;padding-left:10px;cursor:pointer;padding-right:2rem;border:none;color:#555555;padding-top:3px;height:33px;">
+                                <option value="2000">2000</option>
+                                <option value="2001">2001</option>
+                                <option value="2002">2002</option>
+                                <option value="2003">2003</option>
+                            </select>
+                            <select name="month" id="selectMonth" class="calanderSelect SelectMonth timeSelect"
+                                style="background-image:url('../images/icon/down.png');background-repeat:no-repeat;background-position-x:92%;background-position-y:7px;border-radius:2px;padding-left:10px;cursor:pointer;padding-right:2rem;border:none;color:#555555;padding-top:3px;height:33px;">
+                                <option value="1">Baisakh</option>
+                                <option value="2">Jestha</option>
+                                <option value="3">Ashadh</option>
+                                <option value="4">Shrawan</option>
+                                <option value="5">Bhadra</option>
+                                <option value="6">Ashwin</option>
+                                <option value="7">Kartik</option>
+                                <option value="8">Mangsir</option>
+                                <option value="9">Poush</option>
+                                <option value="10">Magh</option>
+                                <option value="11">Falgun</option>
+                                <option value="12">Chaitra</option>
+                            </select>
                     </div>
                 </div>
             </div>
-
-            <!-- Slide 2 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">गाहा सृङ्खलापछि हत्तुरुआमाको हत्या, रे पुज</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #FF4500;">📰</div>
-                        <div class="source-icon" style="background: #00C4CC;">🌐</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">अर्थपालको हिंसाले भिकाडमा बाल्किए, आओसले बात्तिन</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #E60023;">📌</div>
-                        <div class="source-icon" style="background: #FF0000;">▶️</div>
-                        <div class="source-icon" style="background: #1DA1F2;">🐦</div>
-                        <div class="source-icon" style="background: #333;">📱</div>
-                        <div class="source-count">+1</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">अमेरिकाको लागि रिमे कार्यक्रम चोलेन निर्णयमा</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #00C4CC;">🌐</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 5 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">ट्रम्प महिला २०० जनासम्मको नागरिकता रद्द</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #E60023;">📌</div>
-                        <div class="source-icon" style="background: #0077B5;">💼</div>
-                        <div class="source-icon" style="background: #FF0000;">▶️</div>
-                        <div class="source-icon" style="background: #FF4500;">📰</div>
-                        <div class="source-count">+4</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 6 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">अत्तिलिक अर्लाममा रोहे बालिष्टसले सुनाई चुनाई</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #E60023;">📌</div>
-                        <div class="source-icon" style="background: #0077B5;">💼</div>
-                        <div class="source-icon" style="background: #FF0000;">▶️</div>
-                        <div class="source-icon" style="background: #333;">📱</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 7 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">काठमाडौं महानगरको नगरसभा पुरै सु मा</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #E60023;">📌</div>
-                        <div class="source-icon" style="background: #00C4CC;">🌐</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 8 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">अमेरिकाको गम्को दिगो कार्यक्रम बन्द गर्ने घोषणा</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #1DA1F2;">🐦</div>
-                        <div class="source-icon" style="background: #0077B5;">💼</div>
-                        <div class="source-icon" style="background: #FF0000;">📺</div>
-                        <div class="source-icon" style="background: #00C4CC;">🌐</div>
-                        <div class="source-count">+1</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 9 -->
-            <div class="slide-item">
-                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&h=400&fit=crop"
-                    alt="News">
-                <div class="slide-overlay">
-                    <div class="slide-title">अमेरिकाले एकास्मे गनु</div>
-                    <div class="slide-sources">
-                        <div class="source-icon" style="background: #FF4500;">📰</div>
-                        <div class="source-icon" style="background: #00C4CC;">🌐</div>
-                    </div>
-                </div>
-            </div>
+            <div class='items'> Item 3 </div>
         </div>
 
-        <button class="nav-button nav-next" id="nextBtn">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-    </div>
-</div>
+
+
+
+        <style>
+            .column9 {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .current_date {
+                position: relative;
+                padding-bottom: 20px;
+                padding-top: 0px;
+                width: 820px;
+
+            }
+
+            .current_date .dropdown {
+                font-size: 12px;
+                position: absolute;
+                top 0;
+                left: 34%;
+                text-align: center;
+                witdth: 350px;
+                margin-left: -105px;
+            }
+        </style>

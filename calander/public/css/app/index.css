@@ -134,6 +134,96 @@
   right: -20px;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 15px;
+}
+
+.items {
+  padding: 0.5em;
+  /* background: #333; */
+  /* color: #fff; */
+  border-radius: 8px;
+}
+
+.module {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #dbdbdb;
+}
+.module h2 {
+  text-align: left;
+  border-bottom: 2px solid #b71c1c;
+  font-weight: normal;
+  font-family: "Ek Mukta", open_sansbold;
+}
+.module h2 span {
+  color: #fff;
+  font-size: 17px;
+  padding: 5px 0;
+  display: block;
+}
+.module h2 a {
+  text-decoration: none;
+  padding-left: 10px;
+  color: #b71c1c;
+}
+.module ul.upcomming-days {
+  list-style: none;
+  margin-top: 15px;
+  width: 100% !important;
+  height: 260px;
+  padding: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.module ul.upcomming-days li {
+  border-bottom: 1px solid #dbdbdb;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.module ul.upcomming-days li .date {
+  /* font-size: 13px; */
+  float: left;
+  color: #fff;
+  text-align: center;
+  width: 50px;
+  line-height: 20px;
+  background: #2382bc;
+  float: none;
+  flex-shrink: 0;
+}
+.module ul.upcomming-days li .date span {
+  font-size: 15px;
+  display: block;
+}
+.module ul.upcomming-days li .info {
+  font-size: 13px;
+  line-height: 16px;
+  color: #666;
+  display: table;
+  padding-left: 10px;
+  font-family: "EK Mukta";
+  font-weight: 400px;
+  display: block;
+  padding-left: 0;
+}
+.module ul.upcomming-days li .info span {
+  font-size: 16px;
+  color: #2382bc;
+  display: block;
+  padding-bottom: 5px;
+  line-height: 22px;
+}
+.module ul.upcomming-days li .info span a {
+  text-decoration: none;
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .slide-item {
     min-width: 250px;
@@ -148,5 +238,57 @@
   }
   .nav-next {
     right: -10px;
+  }
+}
+@media (max-width: 768px) {
+  .module {
+    padding: 8px;
+  }
+  .module h2 span {
+    font-size: 16px;
+  }
+  ul.upcomming-days {
+    height: 220px;
+  }
+  ul.upcomming-days li {
+    padding: 8px 6px;
+    gap: 8px;
+  }
+  ul.upcomming-days li .date {
+    width: 42px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  ul.upcomming-days li .date span {
+    font-size: 14px;
+  }
+  ul.upcomming-days li .info span {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  ul.upcomming-days li .info {
+    font-size: 12px;
+  }
+}
+@media (max-width: 480px) {
+  ul.upcomming-days {
+    height: 200px;
+  }
+  ul.upcomming-days li {
+    flex-direction: row;
+    padding: 6px 4px;
+  }
+  ul.upcomming-days li .date {
+    width: 38px;
+    font-size: 10px;
+  }
+  ul.upcomming-days li .date span {
+    font-size: 13px;
+  }
+  ul.upcomming-days li .info span {
+    font-size: 14px;
+  }
+  ul.upcomming-days li .info {
+    font-size: 11px;
   }
 }/*# sourceMappingURL=index.css.map */
