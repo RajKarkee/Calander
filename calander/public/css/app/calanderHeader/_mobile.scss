@@ -1,0 +1,13 @@
+ @media (max-width: 768px) {
+        .calendar-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .calendar-left,
+        .calendar-center,
+        .calendar-right {
+            justify-content: center;
+            text-align: center;
+        }
+    }

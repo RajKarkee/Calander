@@ -130,66 +130,785 @@
         </div>
     </div>
     <div class='items'>
-        <div class="column9">
-            <div class="calander" id="calendarContainer">
-                <div class="current_date">
-                    <div class="dropdown">
-                        <form action="#" method="GET" name="search_form" onsubmit="return false;">
-                            <a href ="#" class="prev icon-flipped newArrow arrowLeft">Prev</a>
-                            <select name="year" id="selectYear" class="calanderSelect SelectYear timeSelect"
-                                onchange="changetime();"
-                                style="background-image:url('../images/icon/down.png');background-repeat:no-repeat;background-position-x:92%;background-position-y:7px;border-radius:2px;padding-left:10px;cursor:pointer;padding-right:2rem;border:none;color:#555555;padding-top:3px;height:33px;">
-                                <option value="2000">2000</option>
-                                <option value="2001">2001</option>
-                                <option value="2002">2002</option>
-                                <option value="2003">2003</option>
-                            </select>
-                            <select name="month" id="selectMonth" class="calanderSelect SelectMonth timeSelect"
-                                style="background-image:url('../images/icon/down.png');background-repeat:no-repeat;background-position-x:92%;background-position-y:7px;border-radius:2px;padding-left:10px;cursor:pointer;padding-right:2rem;border:none;color:#555555;padding-top:3px;height:33px;">
-                                <option value="1">Baisakh</option>
-                                <option value="2">Jestha</option>
-                                <option value="3">Ashadh</option>
-                                <option value="4">Shrawan</option>
-                                <option value="5">Bhadra</option>
-                                <option value="6">Ashwin</option>
-                                <option value="7">Kartik</option>
-                                <option value="8">Mangsir</option>
-                                <option value="9">Poush</option>
-                                <option value="10">Magh</option>
-                                <option value="11">Falgun</option>
-                                <option value="12">Chaitra</option>
-                            </select>
-                    </div>
-                </div>
+        <div class="calendar-header">
+            <!-- Left controls -->
+            <div class="calendar-left">
+                <a href="#" class="btn today-btn" onclick="goToToday();return false;">आज</a>
+                <a href="#" class="icon-btn">☷</a>
+                <a href="#" class="icon-btn">≡</a>
             </div>
-            <div class='items'> Item 3 </div>
+
+            <!-- Center controls -->
+            <div class="calendar-center">
+                <a href="#" class="nav-btn">‹‹</a>
+
+                <select id="selectYear">
+                    <option>2081</option>
+                    <option>2082</option>
+                    <option>2083</option>
+                </select>
+
+                <select id="selectMonth">
+                    <option>पुष</option>
+                    <option>माघ</option>
+                    <option>फाल्गुन</option>
+                </select>
+
+                <a href="#" class="nav-btn">››</a>
+            </div>
+
+            <!-- Right info -->
+            <div class="calendar-right">
+                <span class="eng-date">२०८२ पुष | Dec/Jan 2025–2026</span>
+            </div>
         </div>
 
+        <div class="calendar">
+            <ul class="calendar-days">
+                <li><span class="np">आइतवार</span><span class="en">Sunday</span></li>
+                <li><span class="np">सोमवार</span><span class="en">Monday</span></li>
+                <li><span class="np">मंगलवार</span><span class="en">Tuesday</span></li>
+                <li><span class="np">बुधवार</span><span class="en">Wednesday</span></li>
+                <li><span class="np">बिहिवार</span><span class="en">Thursday</span></li>
+                <li><span class="np">शुक्रवार</span><span class="en">Friday</span></li>
+                <li><span class="np">शनिबार</span><span class="en">Saturday</span></li>
+            </ul>
+            <ul class="responsive calendar-days">
+                <li><span class="np">आइत</span><span class="en">Sun</span></li>
+                <li><span class="np">सोम</span><span class="en">Mon</span></li>
+                <li><span class="np">मंगल</span><span class="en">Tue</span></li>
+                <li><span class="np">बुध</span><span class="en">Wed</span></li>
+                <li><span class="np">बिहि</span><span class="en">Thu</span></li>
+                <li><span class="np">शुक्र</span><span class="en">Fri</span></li>
+                <li><span class="np">शनि</span><span class="en">Sat</span></li>
+            </ul>
+            <ul class="calendar-dates">
+                @for ($i = 0; $i < 42 - 7; $i++)
+                    <li onclick="openPopUp('0')" id="0">
+                        <span style=display:none;></span>
+                        <span class="event">---</span>
+                        <span class="nep">१</span>
+                        <span class="tithi"></span>
+                        <span class="tithi"></span>
 
+                        <span class="eng">16</span>
+                        {{-- <span class="eng">
+                       
+                    </span> --}}
+                        <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                            style="opacity:1;overflow:hidden;display:hidden;">
+                            <span class="arrow"></span>
+                            <span class="popup-close closeButon">
+                                <img src="{{ asset('partials/objects/close.png') }}">
+                            </span>
+                            <div class="daydetailsPopOver">
+                                <div class="dayDetails">
+                                    <div class="col1">
+                                        <span style="font-weight:900"> --date-- </span>
 
+                                    </div>
+                                    <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                        --eng date--
+                                        <br>
+                                    </div>
+                                    <div class="col13" style="border:none">
+                                        <div class="panchangaWrapper">
+                                            --panchanga details--
+                                            <br>
+                                            --more details--
+                                        </div>
+                                        <br>
+                                        <div class="eventPopupWrapper">
+                                            <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                                href="#events">--event details--</a>
+                                        </div>
+                                        <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                                href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                                Details</a></h3>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                    <h3
+                                        style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                        मेरो नोट </h3>
+                                    <span id="2025-12-17-nepDay"></span>
+                                    <div style="font-size:15px; text-align:left;padding-left:10px"
+                                        id="2025-12-17-icon">
+                                        You dont have notes on this day. You can take notes on birthdays, meetings,
+                                        things
+                                        to remember, bills to pay, and more. You must be logged in to add a note on this
+                                        day.
+                                    </div>
+                                    <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                    <h5 class="viewNotes" id="edit">
+                                        <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                            style="cursor:pointer;color:#049ffc">
+                                            Add / Edit Note</a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                @endfor
+                {{-- <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
 
-        <style>
-            .column9 {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                {{-- <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings, things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    </li>
+                    <li onclick="openPopUp('0')" id="0">
+                        <span style=display:none;></span>
+                        <span class="event">---</span>
+                        <span class="nep">१</span>
+                        <span class="tithi"></span>
+                        <span class="tithi"></span>
+
+                        <span class="eng">16</span>
+                        {{-- <span class="eng">
+                       
+                    </span> --}}
+                <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                    style="opacity:1;overflow:hidden;display:hidden;">
+                    <span class="arrow"></span>
+                    <span class="popup-close closeButon">
+                        <img src="{{ asset('partials/objects/close.png') }}">
+                    </span>
+                    <div class="daydetailsPopOver">
+                        <div class="dayDetails">
+                            <div class="col1">
+                                <span style="font-weight:900"> --date-- </span>
+
+                            </div>
+                            <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                --eng date--
+                                <br>
+                            </div>
+                            <div class="col13" style="border:none">
+                                <div class="panchangaWrapper">
+                                    --panchanga details--
+                                    <br>
+                                    --more details--
+                                </div>
+                                <br>
+                                <div class="eventPopupWrapper">
+                                    <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                        href="#events">--event details--</a>
+                                </div>
+                                <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                        href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                        Details</a></h3>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                            <h3
+                                style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                मेरो नोट </h3>
+                            <span id="2025-12-17-nepDay"></span>
+                            <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                You dont have notes on this day. You can take notes on birthdays, meetings,
+                                things
+                                to remember, bills to pay, and more. You must be logged in to add a note on this
+                                day.
+                            </div>
+                            <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                            <h5 class="viewNotes" id="edit">
+                                <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                    style="cursor:pointer;color:#049ffc">
+                                    Add / Edit Note</a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li onclick="openPopUp('0')" id="0">
+                    <span style=display:none;></span>
+                    <span class="event">---</span>
+                    <span class="nep">१</span>
+                    <span class="tithi"></span>
+                    <span class="tithi"></span>
+
+                    <span class="eng">16</span>
+                    {{-- <span class="eng">
+                       
+                    </span> --}}
+                    <div class="popup-box daydetailsPopOverWrapper" id="daypop"
+                        style="opacity:1;overflow:hidden;display:hidden;">
+                        <span class="arrow"></span>
+                        <span class="popup-close closeButon">
+                            <img src="{{ asset('partials/objects/close.png') }}">
+                        </span>
+                        <div class="daydetailsPopOver">
+                            <div class="dayDetails">
+                                <div class="col1">
+                                    <span style="font-weight:900"> --date-- </span>
+
+                                </div>
+                                <div class="col2" style="border:none;text-align:left;padding-left:15px">
+                                    --eng date--
+                                    <br>
+                                </div>
+                                <div class="col13" style="border:none">
+                                    <div class="panchangaWrapper">
+                                        --panchanga details--
+                                        <br>
+                                        --more details--
+                                    </div>
+                                    <br>
+                                    <div class="eventPopupWrapper">
+                                        <a style="color:#333230;text-decoration:underline; cursor:pointer;"
+                                            href="#events">--event details--</a>
+                                    </div>
+                                    <h3 class="viewDetails"><a href="/details" style="color:049ffc;"
+                                            href="/date/2082-09-02" onclick="viewevents('2082-09-02');">View
+                                            Details</a></h3>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="notes" style="background: #fff2df" id="2025-12-18-calenderNotesWrapper">
+                                <h3
+                                    style="text-align: left;padding-left:10px;font-sizr:14px;font-weight:900;padding-top:10px">
+                                    मेरो नोट </h3>
+                                <span id="2025-12-17-nepDay"></span>
+                                <div style="font-size:15px; text-align:left;padding-left:10px" id="2025-12-17-icon">
+                                    You dont have notes on this day. You can take notes on birthdays, meetings,
+                                    things
+                                    to remember, bills to pay, and more. You must be logged in to add a note on this
+                                    day.
+                                </div>
+                                <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
+                                <h5 class="viewNotes" id="edit">
+                                    <a onclick="editNotes('2025-12-17','2082-09-02')" id="2025-12-17-editpopOver"
+                                        style="cursor:pointer;color:#049ffc">
+                                        Add / Edit Note</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </li> --}}
+
+            </ul>
+        </div>
+
+    </div>
+    <div class='items'>
+        <div class="cta-button">
+            <a href="#/" target="_self" class="holidays">Holidays</a>
+        </div>
+
+    </div>
+    <style>
+        .daydetailsPopOverWrapper {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            display: none;
+        }
+
+        .cta-button a {
+            padding: 8px 10px;
+            font-family: GilroyBold, sans-serif;
+            font-size: 12px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+
+        }
+
+        .holidays {
+            background: #fce4ec;
+            color: #b71d1d !important;
+        }
+
+        /* .calendar-dates li:hover .daydetailsPopOverWrapper {
+        display: block;
+  
+
+        .daydetailsPopOverWrapper .arrow {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #fff;
+        }
+
+        @media (max-width: 768px) {
+            .calendar ul.calendar-dates {
+                grid-template-columns: repeat(7, minmax(44px, 1fr));
             }
 
-            .current_date {
-                position: relative;
-                padding-bottom: 20px;
-                padding-top: 0px;
-                width: 820px;
-
+            .calendar-dates .nep {
+                font-size: 22px;
             }
 
-            .current_date .dropdown {
-                font-size: 12px;
-                position: absolute;
-                top 0;
-                left: 34%;
-                text-align: center;
-                witdth: 350px;
-                margin-left: -105px;
+            .calendar ul.calendar-dates li {
+                height: 80px;
             }
-        </style>
+        }
+
+        */
+    </style>

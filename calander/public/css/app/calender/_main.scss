@@ -1,0 +1,87 @@
+.calendar{
+        ul.calendar-dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            width: 100%;
+            max-width: 1101px;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            border-left: 1px solid #e5e5e5;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        ul.calendar-dates li {
+            position: relative;
+            height: 115px;
+            padding: 6px 6px 4px;
+            border-right: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            background: #fff;
+            cursor: pointer;
+            box-sizing: border-box;
+            justify-items: center;
+        }
+
+        ul.calendar-dates li:hover {
+            background: #093052;
+            color: #fff;
+        }
+
+        .calendar-dates .nep {
+            font-size: 34px;
+            font-weight: 500;
+            color: #555;
+            display: block;
+            line-height: 1;
+        }
+
+        .calendar-dates .eng {
+            position: absolute;
+            right: 6px;
+            bottom: 6px;
+            font-size: 11px;
+            color: #999;
+        }
+
+        .calendar-dates .event {
+            font-size: 11px;
+            color: #666;
+            display: block;
+            margin-bottom: 4px;
+            min-height: 14px;
+        }
+
+        .calendar-dates .tithi {
+            font-size: 11px;
+            color: #777;
+            display: block;
+        }
+
+        /* Today (blue) */
+        .calendar-dates li.today {
+            background: #0b5fa5;
+        }
+
+        .calendar-dates li.today .nep,
+        .calendar-dates li.today .event,
+        .calendar-dates li.today .tithi {
+            color: #fff;
+        }
+
+        /* Saturday / Red events */
+        .calendar-dates li .event.red,
+        .calendar-dates li.saturday .nep {
+            color: #d10000;
+        }
+
+        /* Previous / Next month */
+        .calendar-dates li.other-month {
+            background: #fafafa;
+        }
+
+        .calendar-dates li.other-month .nep {
+            color: #ccc;
+        }
+}
+

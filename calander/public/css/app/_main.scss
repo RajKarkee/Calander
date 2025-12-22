@@ -1,7 +1,17 @@
 @forward './slider/main';
 @forward './grid/main';
 @forward './upcomingdays/main';
+@forward './calanderHeader/main';
+@forward './calanderDays/main';
+@forward './calender/main';
 
+   a {
+        text-decoration: none;
+        color: inherit;
+    }
+      ul {
+        list-style: none;
+    }
 
 
 

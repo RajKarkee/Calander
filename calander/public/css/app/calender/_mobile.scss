@@ -1,0 +1,17 @@
+       @media (max-width: 768px) {
+           .calendar{
+
+
+               ul.calendar-dates {
+                       grid-template-columns: repeat(7, minmax(44px, 1fr));
+                   }
+       
+                   .calendar-dates .nep {
+                       font-size: 22px;
+                   }
+       
+                    ul.calendar-dates li {
+                       height: 80px;
+                   }
+           }
+        }
