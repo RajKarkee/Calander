@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c514d8f7b9fc5970bdd94287905ef584",
+    "content-hash": "753479eaeab641e895f9653bbe7ed091",
     "packages": [
         {
             "name": "brick/math",
@@ -2294,16 +2294,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "fa1f0b8261ed150447979eb22e373b7b7ad5a8e0"
+                "reference": "c99059c0315591f1a0db7ad6002000288ab8dc72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/fa1f0b8261ed150447979eb22e373b7b7ad5a8e0",
-                "reference": "fa1f0b8261ed150447979eb22e373b7b7ad5a8e0",
+                "url": "https://api.github.com/repos/nette/utils/zipball/c99059c0315591f1a0db7ad6002000288ab8dc72",
+                "reference": "c99059c0315591f1a0db7ad6002000288ab8dc72",
                 "shasum": ""
             },
             "require": {
@@ -2377,9 +2377,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.1.0"
+                "source": "https://github.com/nette/utils/tree/v4.1.1"
             },
-            "time": "2025-12-01T17:49:23+00:00"
+            "time": "2025-12-22T12:14:32+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2600,6 +2600,71 @@
                 }
             ],
             "time": "2025-08-21T11:53:16+00:00"
+        },
+        {
+            "name": "pratiksh/nepalidate",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pratiksh404/nepalidate.git",
+                "reference": "8a6e7739d2eab8824e663891cb8c1dec8bed72d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pratiksh404/nepalidate/zipball/8a6e7739d2eab8824e663891cb8c1dec8bed72d4",
+                "reference": "8a6e7739d2eab8824e663891cb8c1dec8bed72d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^1.0",
+                "orchestra/testbench": "^6.0",
+                "pestphp/pest": "^1.23",
+                "pestphp/pest-plugin-laravel": "^1.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Nepalidate": "Pratiksh\\Nepalidate\\Facades\\NepaliDate"
+                    },
+                    "providers": [
+                        "Pratiksh\\Nepalidate\\Providers\\NepalidateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers/helper.php"
+                ],
+                "psr-4": {
+                    "Pratiksh\\Nepalidate\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pratik Shrestha",
+                    "email": "pratikdai404@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package to convert AD to BS that can work with carbon.",
+            "homepage": "https://github.com/pratiksh/nepalidate",
+            "keywords": [
+                "nepalidate",
+                "pratiksh"
+            ],
+            "support": {
+                "issues": "https://github.com/pratiksh404/nepalidate/issues",
+                "source": "https://github.com/pratiksh404/nepalidate/tree/v2.0.1"
+            },
+            "time": "2025-08-06T16:07:49+00:00"
         },
         {
             "name": "psr/clock",

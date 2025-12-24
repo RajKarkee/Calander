@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/app/nepalidate/date.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app/index.css') }}">
     <style>
         * {
@@ -537,7 +538,12 @@
             @include('calendar.layout.partials.slider')
             @include('calendar.index')
         </div>
+        <div class="nepali">
+            <input type="text" id="nepali-datepicker" placeholder="Select Nepali Date"
+                style="padding:10px;font-size:16px;">
+        </div>
     </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -550,10 +556,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous">
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bikram-sambat-js@1.0.3/dist/bikram-sambat.min.js"></script>
-
+    <script src="{{ asset('js/nepali.datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/date.js') }}"></script>
+    <script src="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v5.0.6.min.js"
+        type="text/javascript"></script>
     <script>
+        window.onload = function() {
+            var input = document.getElementById("nepali-datepicker");
+            input.nepaliDatePicker();
+        }
+
         function getEnglishMonthName(month) {
             const englishMonths = [
                 'Baisakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin',
@@ -611,8 +623,8 @@
             console.log(nepaliMonth);
             // document.getElementById('nepaliDateFull').innerText = `${nepDay} ${nepaliMonth} ${nepYear}`;
             // console.log(nepYear, nepMonth, nepDay);
-            console.log(getNepaliMonthName(nepMonth));
-            console.log(day);
+            // console.log(getNepaliMonthName(nepMonth));
+            // console.log(day);
             document.getElementById('englishDay').innerText = getEnglishDayName(day);
             let hours = nepaliTime.getHours();
             const minutes = nepaliTime.getMinutes().toString().padStart(2, '0');
@@ -642,6 +654,8 @@
         updatedNepaliClock();
         setInterval(updatedNepaliClock, 1000);
         console.log(updatedNepaliClock());
+
+
 
         function convert(dateConvert) {
 

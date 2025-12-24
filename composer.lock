@@ -1,0 +1,84 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "8288afdf14d25c20ff4e93557e6c1f11",
+    "packages": [
+        {
+            "name": "pratiksh/nepalidate",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pratiksh404/nepalidate.git",
+                "reference": "8a6e7739d2eab8824e663891cb8c1dec8bed72d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pratiksh404/nepalidate/zipball/8a6e7739d2eab8824e663891cb8c1dec8bed72d4",
+                "reference": "8a6e7739d2eab8824e663891cb8c1dec8bed72d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^1.0",
+                "orchestra/testbench": "^6.0",
+                "pestphp/pest": "^1.23",
+                "pestphp/pest-plugin-laravel": "^1.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Nepalidate": "Pratiksh\\Nepalidate\\Facades\\NepaliDate"
+                    },
+                    "providers": [
+                        "Pratiksh\\Nepalidate\\Providers\\NepalidateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers/helper.php"
+                ],
+                "psr-4": {
+                    "Pratiksh\\Nepalidate\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pratik Shrestha",
+                    "email": "pratikdai404@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package to convert AD to BS that can work with carbon.",
+            "homepage": "https://github.com/pratiksh/nepalidate",
+            "keywords": [
+                "nepalidate",
+                "pratiksh"
+            ],
+            "support": {
+                "issues": "https://github.com/pratiksh404/nepalidate/issues",
+                "source": "https://github.com/pratiksh404/nepalidate/tree/v2.0.1"
+            },
+            "time": "2025-08-06T16:07:49+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}
