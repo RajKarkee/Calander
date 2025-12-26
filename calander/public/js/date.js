@@ -358,6 +358,36 @@ function bsToAdDate(bsYear, bsMonth, bsDay) {
     return adDateStr ? new Date(adDateStr) : null;
 }
 
+function todayCard() {
+    const today = NepaliFunctions.BS.GetCurrentDate();
+    let currentYear = today.year;
+    let currentMonth = today.month;
+
+    const html = `<div class="today-card">
+   <h3>आजको मिति</h3>
+   <p class="nepali-date">नेपाली: ${NepaliFunctions.ConvertToUnicode(today.year)}-${NepaliFunctions.ConvertToUnicode(today.month)}-${NepaliFunctions.ConvertToUnicode(today.day)}</p>
+   <p class="english-date">अंग्रेजी: ${new Date(NepaliFunctions.BS2AD(`${today.year}-${today.month}-${today.day}`)).toLocaleDateString('en-US')}</p>
+</div>`;
+    const todayBtn = document.getElementById('calendar').innerHTML = html;
+
+}
+$(document).ready(function () {
+    $('#todayBtn').on('click', function () {
+
+        goToToday();
+    });
+    $('#showCalendarBtn').on('click', function () {
+        $('#showCalendarBtn').hide();
+        $('#todayBtn').show();
+        $('.today-card').remove();
+    });
+});
+function goToToday() {
+    const today = NepaliFunctions.BS.GetCurrentDate();
+    let currentYear = today.year;
+    let currentMonth = today.month;
+    renderCalendar(currentYear, currentMonth);
+}
 
 
 

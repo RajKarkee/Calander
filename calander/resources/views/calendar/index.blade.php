@@ -133,7 +133,8 @@
         <div class="calendar-header">
             <!-- Left controls -->
             <div class="calendar-left">
-                <a href="#" class="btn today-btn" onclick="goToToday();return false;">आज</a>
+                <button class="btn today-btn" id="todayBtn">आज</button>
+
                 <a href="#" class="icon-btn">☷</a>
                 <a href="#" class="icon-btn">≡</a>
             </div>
@@ -150,7 +151,7 @@
 
                 </select>
 
-                <button id="nextMonth" href="#" class="nav-btn">››</button>
+                <button id="nextMonth" class="nav-btn">››</button>
             </div>
 
             <!-- Right info -->
@@ -159,7 +160,7 @@
             </div>
         </div>
 
-        <div class="calendar" style="visibility:hidden;">
+        <div class="calendar" id="calendar" style="visibility:hidden;">
             <ul class="calendar-days">
                 <li><span class="np">आइतवार</span><span class="en">Sunday</span></li>
                 <li><span class="np">सोमवार</span><span class="en">Monday</span></li>
