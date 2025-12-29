@@ -128,6 +128,31 @@
                 </li>
             </ul>
         </div>
+        <div class="dateConverter">
+            <h3>Date Converter</h3>
+            <input type="radio" id="nepaliToEnglish" name="conversionType" value="nepaliToEnglish" checked>
+            <label for="nepaliToEnglish">नेपाली मिति देखि अङ्ग्रेजी </label>
+            <br>
+            <input type="radio" id="englishToNepali" name="conversionType" value="englishToNepali">
+            <label for="englishToNepali">अङ्ग्रेजी मिति देखि नेपाली</label>
+            <br>
+
+            <div class="converter-inputs">
+                <div id="nepali-date-conversion" class="input-group nepali-date">
+                    <label for="nepaliDateInput">नेपाली मिति</label>
+                    <input type="text" id="nepali-datepicker" placeholder="Select Nepali Date"
+                        style="padding:10px;font-size:16px;">
+                </div>
+                <div id="english-date-conversion" class="input-group english-date" style="display:none;">
+                    <label for="englishDateInput">अङ्ग्रेजी मिति</label>
+                    {{-- <input type="date" id="englishDateInput" placeholder="YYYY-MM-DD"> --}}
+                    <input type="date" id="english-datepicker" placeholder="Select English Date"
+                        style="padding:10px;font-size:16px;">
+                </div>
+                <button id="convertBtn">Convert</button>
+                <div class="result" id='dateConversionResult'></div>
+            </div>
+        </div>
     </div>
     <div class='items'>
         <div class="calendar-header">
@@ -135,8 +160,8 @@
             <div class="calendar-left">
                 <button class="btn today-btn" id="todayBtn">आज</button>
 
-                <a href="#" class="icon-btn">☷</a>
-                <a href="#" class="icon-btn">≡</a>
+                <button id="calendarView" class="icon-btn">☷</button>
+                <button id="menuView" class="icon-btn">≡</button>
             </div>
 
             <!-- Center controls -->
@@ -234,7 +259,8 @@
                                         id="2025-12-17-icon">
                                         You dont have notes on this day. You can take notes on birthdays, meetings,
                                         things
-                                        to remember, bills to pay, and more. You must be logged in to add a note on this
+                                        to remember, bills to pay, and more. You must be logged in to add a note on
+                                        this
                                         day.
                                     </div>
                                     <textarea style="display:none;" id="2025-12-17-noteTextArea"></textarea>
@@ -265,60 +291,66 @@
         </div>
 
     </div>
-    <style>
-        .calendar-dates li.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
+</div>
+<style>
+    button {
+        border: none;
+    }
 
-        .calendar-dates li.todat {
-            background: #b71c1c;
-            color: #fff;
-        }
 
-        .calendar-dates li.saturday {
-            background: #fce4e4;
-        }
+    .calendar-dates li.disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
 
-        .calendar-tades li.today.saturday {
-            bakground: #8e0000;
-            color: #fff;
-        }
+    .calendar-dates li.todat {
+        background: #b71c1c;
+        color: #fff;
+    }
 
-        .daydetailsPopOverWrapper {
-            position: absolute;
-            top: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 320px;
-            background: #fff;
-            border: 1px solid #ddd;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            z-index: 99;
-            display: none;
-        }
+    .calendar-dates li.saturday {
+        background: #fce4e4;
+    }
 
-        .cta-button a {
-            padding: 8px 10px;
-            font-family: GilroyBold, sans-serif;
-            font-size: 12px;
-            outline: none;
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-            justify-content: space-between;
-            display: flex;
-            align-items: center;
-            text-transform: uppercase;
+    .calendar-tades li.today.saturday {
+        bakground: #8e0000;
+        color: #fff;
+    }
 
-        }
+    .daydetailsPopOverWrapper {
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 320px;
+        background: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        z-index: 99;
+        display: none;
+    }
 
-        .holidays {
-            background: #fce4ec;
-            color: #b71d1d !important;
-        }
+    .cta-button a {
+        padding: 8px 10px;
+        font-family: GilroyBold, sans-serif;
+        font-size: 12px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        justify-content: space-between;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
 
-        /* .calendar-dates li:hover .daydetailsPopOverWrapper {
+    }
+
+    .holidays {
+        background: #fce4ec;
+        color: #b71d1d !important;
+    }
+
+    /* .calendar-dates li:hover .daydetailsPopOverWrapper {
         display: block;
   
 
@@ -349,4 +381,4 @@
         }
 
         */
-    </style>
+</style>

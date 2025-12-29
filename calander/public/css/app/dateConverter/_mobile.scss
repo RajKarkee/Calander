@@ -1,0 +1,15 @@
+  @media (max-width: 640px) {
+            .dateConverter {
+                padding: 1.5rem;
+            }
+
+            .dateConverter h3 {
+                font-size: 1.5rem;
+            }
+
+            .dateConverter input[type="radio"]+label {
+                display: block;
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+        }

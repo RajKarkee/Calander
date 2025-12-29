@@ -1,0 +1,150 @@
+   .dateConverter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            color: white;
+
+
+
+            .dateConverter h3 {
+                margin: 0 0 1.5rem 0;
+                font-size: 1.75rem;
+                font-weight: 600;
+                text-align: center;
+                letter-spacing: -0.5px;
+            }
+    
+            .dateConverter input[type="radio"] {
+                display: none;
+            }
+    
+            .dateConverter input[type="radio"]+label {
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                margin: 0.25rem 0.5rem 0.25rem 0;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 500;
+                font-size: 0.95rem;
+                backdrop-filter: blur(10px);
+                border: 2px solid transparent;
+            }
+    
+            .dateConverter input[type="radio"]:checked+label {
+                background: white;
+                color: #667eea;
+                border-color: white;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            }
+    
+            .dateConverter input[type="radio"]+label:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateY(-2px);
+            }
+    
+            .dateConverter input[type="radio"]:checked+label:hover {
+                background: white;
+                color: #667eea;
+            }
+    
+            .dateConverter br {
+                display: block;
+                content: "";
+                margin-bottom: 1.5rem;
+            }
+    
+            .converter-inputs {
+                margin-top: 2rem;
+            }
+    
+            .input-group {
+                margin-bottom: 1.5rem;
+            }
+    
+            .input-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 500;
+                font-size: 1rem;
+                opacity: 0.95;
+            }
+    
+            .input-group input[type="text"],
+            .input-group input[type="date"] {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1rem;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.95);
+                color: #333;
+                transition: all 0.3s ease;
+                box-sizing: border-box;
+            }
+    
+            .input-group input[type="text"]:focus,
+            .input-group input[type="date"]:focus {
+                outline: none;
+                border-color: white;
+                background: white;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                transform: translateY(-2px);
+            }
+    
+            .input-group input[type="text"]::placeholder {
+                color: #999;
+            }
+    
+            #convertBtn {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1.1rem;
+                font-weight: 600;
+                background: white;
+                color: #667eea;
+                border: none;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                margin-bottom: 1rem;
+            }
+    
+            #convertBtn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+            }
+    
+            #convertBtn:active {
+                transform: translateY(-1px);
+            }
+    
+            .result {
+                min-height: 60px;
+                padding: 1.25rem;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                font-size: 1.1rem;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+    
+            .result:empty {
+                opacity: 0.5;
+            }
+    
+            .result:not(:empty) {
+                background: rgba(255, 255, 255, 0.25);
+                border-color: rgba(255, 255, 255, 0.4);
+            }
+
+        }

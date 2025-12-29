@@ -376,10 +376,15 @@ $(document).ready(function () {
 
         goToToday();
     });
-    $('#showCalendarBtn').on('click', function () {
-        $('#showCalendarBtn').hide();
-        $('#todayBtn').show();
-        $('.today-card').remove();
+    $('#menuView').on('click', function () {
+        todayCard();
+    })
+
+    $('#calendarView').on('click', function () {
+        const today = NepaliFunctions.BS.GetCurrentDate();
+        let currentYear = today.year;
+        let currentMonth = today.month;
+        renderCalendar(currentYear, currentMonth);
     });
 });
 function goToToday() {
@@ -388,6 +393,46 @@ function goToToday() {
     let currentMonth = today.month;
     renderCalendar(currentYear, currentMonth);
 }
+let conversionType = 'nepaliToEnglish';
+document.querySelectorAll('input[name="conversionType"]').forEach((elem) => {
+    elem.addEventListener('change', function () {
+        conversionType = this.value;
+        if (conversionType === 'nepaliToEnglish') {
+            document.getElementById('nepali-date-conversion').style.display = 'block';
+            document.getElementById('english-date-conversion').style.display = 'none';
+        } else if (conversionType === 'englishToNepali') {
+            document.getElementById('english-date-conversion').style.display = 'block';
+            document.getElementById('nepali-date-conversion').style.display = 'none';
+        }
+        document.getElementById('dateConversionResult').textContent = '';
+    });
+});
 
-
-
+document.getElementById('convertBtn').addEventListener('click', function () {
+    let result = '';
+    if (conversionType === 'nepaliToEnglish') {
+        const nepDateInput = document.getElementById('nepali-datepicker').value;
+        const adDate = NepaliFunctions.BS2AD(nepDateInput);
+        console.log(adDate);
+        console.log(nepDateInput);
+        result = adDate ? adDate : 'Invalid Nepali date format';
+    } else if (conversionType === 'englishToNepali') {
+        const engDateInput = document.getElementById('english-datepicker').value;
+        const adDateObj = new Date(engDateInput);
+        if (isNaN(adDateObj.getTime())) {
+            result = 'Invalid English date format';
+        } else {
+            const bsDate = NepaliFunctions.AD2BS(adDateObj);
+            // result = bsDate ? `${NepaliFunctions.ConvertToUnicode(bsDate.year)}-${NepaliFunctions.ConvertToUnicode(bsDate.month)}-${NepaliFunctions.ConvertToUnicode(bsDate.day)}` : 'Invalid English date format';
+            console.log(engDateInput);
+            console.log(bsDate);
+            console.log(result);
+            const [ConYear, ConMonth, ConDay] = bsDate.split('-');
+            console.log(ConDay);
+            console.log(ConMonth);
+            console.log(ConYear);
+            result = bsDate ? `${NepaliFunctions.ConvertToUnicode(ConYear)}-${NepaliFunctions.ConvertToUnicode(ConMonth)}-${NepaliFunctions.ConvertToUnicode(ConDay)}` : 'Invalid English date format';
+        }
+    }
+    document.getElementById('dateConversionResult').textContent = result;
+});
