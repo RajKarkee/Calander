@@ -39,4 +39,29 @@ $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toBS(); // 2082-02-04
                 
                      return $response->json();
     }
+    public function addMonthData(Request $request, $month){
+        if($request->isMethod('post')){
+            // Process the submitted data for the specified month
+            $data = $request->all();
+            // Save the data logic here
+            dd($data, $month);
+        }
+        $response= Http::get('http://localhost:3000/api/calendar/summary');
+        if($response->failed()){
+             return response()->json(['error' => 'Failed to fetch events'], 500);
+                    }
+        $calendarSummary = collect($response->json('calendarSummary'));
+        $monthData=$calendarSummary->firstWhere('monthIndex', (int)$month);
+        if(!$monthData){
+            abort(404, 'Month data not found');
+        }
+        $dayByDate=collect($monthData['days'])->mapWithKeys(function($day){
+         [$y,$m,$d]=explode('-',$day['nepaliDate']);
+         $normalizedKey= sprintf('%d-%d-%d',$y,(int)$m,(int)$d);
+         return [$normalizedKey => $day];
+        });
+        // Display the form to add data for the specified month
+        return view('backend.month_data', ['month' => $month
+        , 'data' => $dayByDate]);
+    }
 }

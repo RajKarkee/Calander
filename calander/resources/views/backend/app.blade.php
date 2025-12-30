@@ -19,6 +19,11 @@
         padding: 15px;
         height: 100vh;
     }
+
+    a {
+        text-decoration: none;
+        color: blue;
+    }
 </style>
 
 <body>
@@ -29,63 +34,84 @@
                 <h3>Sidebar</h3>
             </div>
             <div class="main-content">
-                <h3>
-                    <button class="btn btn-primary" type="button" id="addEventBtn">Add Event</button>
-                    <table border="1" cellpadding="10">
+
+                <button class="btn btn-primary" type="button" id="addEventBtn">Add Event</button>
+                <table border="1" cellpadding="10">
+                    <tr>
+                        <th>Sn</th>
+                        <th>Month</th>
+                        <th>Events</th>
+                        <th>Holidays</th>
+                        <th>Extra Events</th>
+                        <th>Notes</th>
+                    </tr>
+                    @php
+                        $month = [
+                            'बैशाख',
+                            'जेष्ठ',
+                            'आषाढ',
+                            'श्रावण',
+                            'भाद्र',
+                            'आश्विन',
+                            'कार्तिक',
+                            'मंसिर',
+                            'पौष',
+                            'माघ',
+                            'फाल्गुन',
+                            'चैत्र',
+                        ];
+                    @endphp
+                    @for ($i = 1; $i <= 12; $i++)
                         <tr>
-                            <th>Sn</th>
-                            <th>Date</th>
-                            <th>Events</th>
-                            <th>Holidays</th>
-                            <th>Extra Events</th>
-                            <th>Notes</th>
+
+                            <td>{{ $i }}</td>
+                            <td>{{ $month[$i - 1] }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a href="{{ route('add.month.data', $i) }}">Add Events in the Month</a>
+                            </td>
+
                         </tr>
-                        <tr>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                            <td>Data 1</td>
-                            <td>Data 2</td>
-                        </tr>
-                </h3>
+                    @endfor
+                </table>
             </div>
         </div>
-    </div>
-    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js" type="text/javascript"></script>
-    <script>
-        let calendarData = [];
-        const addEventBtn = document.getElementById('addEventBtn');
-        addEventBtn.onclick = function() {
-            const promt = prompt('Do you want to load the event yes/No');
-            console.log(promt);
-            if (promt.toLowerCase() === 'yes') {
+        <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js" type="text/javascript"></script>
+        <script>
+            let calendarData = [];
+            const addEventBtn = document.getElementById('addEventBtn');
+            addEventBtn.onclick = function() {
+                const promt = prompt('Do you want to load the event yes/No');
+                console.log(promt);
+                if (promt.toLowerCase() === 'yes') {
 
-                $.ajax({
-                    url: '/admin/load-event',
-                    type: 'GET',
-                    success: function(response) {
-                        console.log(response);
-                        const arr1 = response.calendarSummary[0].days;
-                        const arr2 = response.calendarSummary[1].days;
-                        console.log(arr1);
-                        console.log(arr2);
-                        calendarData = response.calendarSummary;
-                        alert('Event Loaded Successfully');
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                        alert('Error loading events ' +
-                            xhr.message);
-                    }
-                });
+                    $.ajax({
+                        url: '/admin/load-event',
+                        type: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            const arr1 = response.calendarSummary[0].days;
+                            const arr2 = response.calendarSummary[1].days;
+                            console.log(arr1);
+                            console.log(arr2);
+                            calendarData = response.calendarSummary;
+                            alert('Event Loaded Successfully');
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                            alert('Error loading events ' +
+                                xhr.message);
+                        }
+                    });
 
 
-            } else {
-                alert('Event Loading Cancelled');
+                } else {
+                    alert('Event Loading Cancelled');
+                }
             }
-        }
-    </script>
+        </script>
 </body>
 
 </html>
