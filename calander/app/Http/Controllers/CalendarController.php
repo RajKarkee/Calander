@@ -112,4 +112,10 @@ $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toBS(); // 2082-02-04
       
         return response()->json($dayByDate);
     }
+    public function getCalendarData($year, $month){
+        $events =DB::table('calendar_events')->where('bs_year', $year)->where('bs_month',$month)->get()->keyBy(function($item){
+            return sprintf('%04d-%02d-%02d', $item->bs_year, $item->bs_month, $item->bs_day);
+        });
+        return response()->json($events);
+    }
 }

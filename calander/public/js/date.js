@@ -235,9 +235,57 @@ function renderCalendar(bsYear, bsMonth) {
         if (isToday) {
             cell.classList.add('today');
         }
-        cell.innerHTML = `<span class="nep">${NepaliFunctions.ConvertToUnicode(bs.day)}</span>
-            <span class="eng">${adDate.getDate()}</span>`;
+        cell.dataset.bsDate = `${bs.year}-${String(bs.month).padStart(2, '0')}-${String(bs.day).padStart(2, '0')}`;
+        cell.innerHTML = ` <span class = "event"></span>
+        <span class="nep">${NepaliFunctions.ConvertToUnicode(bs.day)}</span>
+            <span class="eng">${adDate.getDate()}</span>
+            <span class='tithi'></span>
+           
+            `;
     }
+}
+function renderCalendarEvents(events) {
+    const todayBs = NepaliFunctions.BS.GetCurrentDate();
+    const upcomingDate = document.querySelector('.upcomming-days');
+    document.querySelectorAll('.calendar-dates li').forEach(cell => {
+        const bsDate = cell.dataset.bsDate;
+        if (!bsDate || !events[bsDate]) return;
+        const eventData = events[bsDate];
+        const adObj = NepaliFunctions.BS2AD(bsDate);
+        if (eventData?.tithi) {
+            let tithiSpan = cell.querySelector('.tithi');
+            tithiSpan.innerText = eventData.tithi;
+        }
+        const eventSpan = cell.querySelector('.event');
+        if (eventData?.title) {
+            eventSpan.innerText = eventData.title;
+        }
+
+        if (eventData?.is_holiday) {
+            cell.classList.add('holiday');
+        }
+        const [year, month, day] = bsDate.split('-').map(Number);
+        const isAfterToday = year > todayBs.year ||
+            (year === todayBs.year && month > todayBs.month) ||
+            (year === todayBs.year && month === todayBs.month && day >= todayBs.day);
+        if (isAfterToday && eventData?.is_holiday) {
+            const li = document.createElement('li');
+            li.className = 'clearfix';
+            li.innerHtml = `
+                <div class="date">
+                <span>${NepaliFunctions.ConvertToUnicode(day)}</span>
+                ${NepaliFunctions.BS.GetMonthInUnicode(month - 1)
+                }</div>
+                <div class="info">
+                <span>
+                <a href="#date">${eventData.title}</a>
+                </span>
+                </div>
+                `;
+            upcomingDate.appendChild(li);
+        }
+
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -281,10 +329,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         syncUI();
     });
-    function syncUI() {
+    async function syncUI() {
         renderCalendar(currentYear, currentMonth);
         dropdownsCalendar(currentYear, currentMonth);
         updateCalendarHeader(currentYear, currentMonth);
+        const events = await fetchCalendarData(currentYear, currentMonth);
+        renderCalendarEvents(events);
     }
 
 });
@@ -436,3 +486,13 @@ document.getElementById('convertBtn').addEventListener('click', function () {
     }
     document.getElementById('dateConversionResult').textContent = result;
 });
+async function fetchCalendarData(bsYear, bsMonth) {
+    try {
+        const response = await fetch(`/calendar/data/${bsYear}/${bsMonth}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching calendar data:', error);
+        return {};
+    }
+}
