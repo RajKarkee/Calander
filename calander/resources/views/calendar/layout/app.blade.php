@@ -82,7 +82,7 @@
         .logo-text {
             font-size: clamp(16px, 2.2vw, 20px);
             font-weight: 700;
-          
+
             text-decoration: none;
             letter-spacing: 0.5px;
             white-space: nowrap;
@@ -204,7 +204,7 @@
         }
 
         .date-banner {
-          
+
             color: white;
             padding: 40px 20px;
             position: relative;
@@ -233,6 +233,7 @@
             flex: 0 0 25%;
             min-width: 0;
         }
+
         .ads-slider {
             position: relative;
             z-index: 1;
@@ -291,9 +292,11 @@
             .date-banner {
                 padding: 28px 16px;
             }
+
             .date-content {
                 flex: 0 0 35%;
             }
+
             .ads-slider {
                 flex: 0 0 65%;
             }
@@ -303,16 +306,19 @@
             .nav {
                 padding: 0 16px;
             }
+
             .date-banner {
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .date-content,
             .ads-slider {
                 flex: 0 0 auto;
                 width: 100%;
                 max-width: none;
             }
+
             .ads-slider .ad-item img {
                 height: clamp(120px, 35vw, 180px);
             }
@@ -364,6 +370,9 @@
             background-color: #f9fafb;
             padding: 10px 30px;
             border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 999999999999999;
         }
 
         .calendar-nav-content {
@@ -607,17 +616,12 @@
         <!-- Logo Section -->
         <div class="logo">
             <div class="logo-icon {{ setting('logo_image') ? 'logo-icon--image' : '' }}">
-                @if(setting('logo_image'))
-                    <img
-                        src="{{ getLogo() }}"
-                        alt="Site Logo"
-                        class="site-logo"
-                        loading="eager"
-                        decoding="async"
-                    >
+                @if (setting('logo_image'))
+                    <img src="{{ getLogo() }}" alt="Site Logo" class="site-logo" loading="eager" decoding="async">
                 @endif
             </div>
-            <a href="/" class="logo-text" style="color:{{ setting('logo_color') }}">{{ setting('site_name') ?? 'null' }}</a>
+            <a href="/" class="logo-text"
+                style="color:{{ setting('logo_color') }}">{{ setting('site_name') ?? 'null' }}</a>
         </div>
 
         <!-- Hamburger Menu Icon -->
@@ -630,7 +634,7 @@
         <!-- Navigation Links -->
         <div class="nav-center" id="navCenter">
             <ul class="nav-links">
-                <li><a href="#">{{__('site.home') }}</a></li>
+                <li><a href="#">{{ __('site.home') }}</a></li>
                 <li><a href="#">Mart</a></li>
                 <li><a href="#">Gifts</a></li>
                 <li><a href="#">Recharge</a></li>
@@ -648,11 +652,11 @@
         @include('calendar.layout.partials.message')
         <!-- Right Section with Language Button and User Icon -->
         <div class="nav-right">
-      @if(app()->getLocale() === 'en')
-    <a href="{{ route('lang.switch', ['locale' => 'np']) }}" class="language-btn">NP</a>
-@else
-    <a href="{{ route('lang.switch', ['locale' => 'en']) }}" class="language-btn">EN</a>
-@endif
+            @if (app()->getLocale() === 'en')
+                <a href="{{ route('lang.switch', ['locale' => 'np']) }}" class="language-btn">NP</a>
+            @else
+                <a href="{{ route('lang.switch', ['locale' => 'en']) }}" class="language-btn">EN</a>
+            @endif
 
             <div class="user-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
