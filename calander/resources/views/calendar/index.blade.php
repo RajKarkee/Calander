@@ -572,3 +572,12 @@
         border-radius: 16px 16px 0 0;
     } */
 </style>
+<script>
+    //language ko lagi
+    window.i18n = {
+        holidays: @json(__('site.holidays')),
+        holidaysIn: @json(__('site.holidays_in')),
+        noUpcomingHolidays: @json(__('site.no_upcoming_holidays'))
+    };
+    //end
+</script>
