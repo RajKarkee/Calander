@@ -293,10 +293,10 @@
     </div>
     <div class='items'>
         <div class="cta-button">
-            <a href="#/" target="_self" class="holidays" id="holidays">Holidays</a>
+            <a href="#/" target="_self" class="holidays" id="holidays">{{ __('site.holidays') }}</a>
 
             <div class="holidayscard">
-                <h3 id="holidaysTitle">Holidays</h3>
+                <h3 id="holidaysTitle">{{ __('site.holidays') }}</h3>
                 <ul id="holidaysList"></ul>
             </div>
         </div>

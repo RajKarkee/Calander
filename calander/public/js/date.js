@@ -614,6 +614,15 @@ document.querySelector('.calendar-dates').addEventListener('click', e => {
 //     popup.style.display = 'block';
 // }
 
+//language ko lagi
+// window.i18n = {
+//     holidays: @json(__('site.holidays')),
+//     holidaysIn: @json(__('site.holidays_in')),
+//     noUpcommingHolidays: @json(__('site.no_upcoming_holidays')),
+// }
+
+//end
+
 
 function openCalendarPopup(cell) {
     const popup = document.getElementById('calendarPopup');

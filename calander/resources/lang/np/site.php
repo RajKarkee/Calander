@@ -14,4 +14,7 @@ return[
     'Converter'=>'परिवर्तक',
     'English to Nepali'=>'अंग्रेजी देखि नेपाली',
     'Nepali to English'=>'नेपाली देखि अंग्रेजी',
+    'holidays'=>'बिदाहरू',
+      'holidays_in' => ':month :year का बिदाहरू',
+    'no_upcoming_holidays' => 'आउँदो कुनै बिदा छैन।',
     ];
