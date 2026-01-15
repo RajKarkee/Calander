@@ -935,7 +935,7 @@
                 }
             });
 
-            // Touch/Swipe support
+
             let touchStartX = 0;
             let touchEndX = 0;
 
