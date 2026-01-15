@@ -431,36 +431,53 @@
   position: relative;
   overflow: hidden;
   flex: 1;
-  height: 30px;
+  /* center content vertically via flexbox */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
   min-width: 0;
+  padding: 4px 0;
 }
 
 .teleprompter-track {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translate3d(0, -50%, 0%);
-  display: inline-flex;
+  /* allow the wrapper flexbox to vertically center the track
+     instead of using absolute positioning which can misplace it */
+  position: relative;
+  flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
   white-space: nowrap;
   will-change: transform;
+  width: 100%;
 }
 
 .teleprompter-content {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 /* Announcement styles */
 .announcement-item {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 6px;
   font-size: 14px;
   color: #111827;
 }
 
+.teleprpmpter-wrapper:hover {
+  cursor: pointer;
+}
+
 .announcement-title {
   color: #374151;
+  display: inline-block;
+  vertical-align: baseline;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 .announcement-sep {
@@ -469,25 +486,49 @@
 }
 
 .type {
+  display: inline-block;
+  vertical-align: baseline;
   font-weight: 700;
-  margin-right: 4px;
+  margin-right: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  line-height: 14px;
+  padding-right: 6px;
 }
 
-.type.news {
+.type.type-news {
   color: #1d4ed8;
 }
 
-.type.announcement {
+.type.type-announcement {
   color: #dc2626;
 }
 
-.type.alert {
-  color: #f59e0b;
+.type.type-alert {
+  /* darker amber for better contrast and visual balance */
+  color: #b45309;
 }
 
 @media (prefers-reduced-motion: reduce) {
   /* Keep readable (user can still see it). We don't force-stop JS here. */
 }
+/* DEBUG: temporary outlines to help diagnose vertical alignment issues.
+   Remove these rules after inspection. */
+.teleprompter-track.debug-outline,
+.announcement-item.debug-outline,
+.type.debug-outline,
+.announcement-title.debug-outline {
+  outline: 2px dashed rgba(255, 0, 0, 0.6) !important;
+  background: rgba(255, 255, 0, 0.02) !important;
+}
+
+/* Alternate: apply outlines globally to quickly check boxes. */
+/* Uncomment during debugging if needed:
+.teleprompter-track, .announcement-item, .type, .announcement-title {
+    outline: 1px dashed rgba(0,128,255,0.35);
+}
+*/
 .module {
   padding: 10px;
   margin-bottom: 16px;

@@ -2,15 +2,15 @@
 @section('content')
     <style>
         /* *, *::before, *::after { box-sizing: border-box; }
-                                    :root { color-scheme: light; }
+                                            :root { color-scheme: light; }
 
-                                    body {
-                                        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-                                        background: #f7f7fb;
-                                        color: #111827;
-                                        margin: 0;
-                                        padding: 24px;
-                                    } */
+                                            body {
+                                                font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+                                                background: #f7f7fb;
+                                                color: #111827;
+                                                margin: 0;
+                                                padding: 24px;
+                                            } */
     </style>
 
 
@@ -33,20 +33,9 @@
             $get = function (string $key, string $fallback = '') use ($settings) {
                 return old($key, $settings[$key] ?? $fallback);
             };
-            $imageUrl = function (string $key) use ($settings) {
-                $path = $settings[$key] ?? null;
-                if (!$path) {
-                    return '';
-                }
-                return asset('storage/' . ltrim($path, '/'));
-            };
-            $sliderInitialUrl = function (string $key) use ($sliders) {
-                $path = $sliders[$key] ?? null;
-                if (!$path) {
-                    return '';
-                }
-                return asset('storage/' . ltrim($path, '/'));
-            };
+            // `imageUrls` and `sliderInitialUrls` are prepared by the controller.
+            $imageUrls = $imageUrls ?? [];
+            $sliderInitialUrls = $sliderInitialUrls ?? [];
         @endphp
 
         <form action="{{ route('admin.events.logo.store') }}" method="POST" enctype="multipart/form-data">
@@ -117,7 +106,7 @@
                     <div class="field">
                         <label>Logo Image</label>
                         <input type="hidden" name="remove_logo_image" value="0">
-                        <div class="dropify" data-initial-url="{{ $imageUrl('logo_image') }}">
+                        <div class="dropify" data-initial-url="{{ $imageUrls['logo_image'] ?? '' }}">
                             <input class="dropify-input js-dropify" type="file" name="logo_image" accept="image/*"
                                 data-remove-target="remove_logo_image">
                             <div class="dropify-inner">
@@ -165,7 +154,7 @@
                         <div class="field js-slider-field" data-slider-number="{{ $n }}">
                             <label>Slider {{ $n }}</label>
                             <input type="hidden" name="remove_{{ $key }}" value="0">
-                            <div class="dropify" data-initial-url="{{ $sliderInitialUrl($key) }}">
+                            <div class="dropify" data-initial-url="{{ $sliderInitialUrls[$key] ?? '' }}">
                                 <input class="dropify-input js-dropify" type="file" name="{{ $key }}"
                                     accept="image/*" data-remove-target="remove_{{ $key }}">
                                 <div class="dropify-inner">

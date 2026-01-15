@@ -8,7 +8,7 @@
                     <div class="teleprompter-content" data-content>
                         @foreach ($announcements as $a)
                             <span class="announcement-item">
-                                <span class="type {{ $a->type }}">{{ strtoupper($a->type) }}:</span>
+                                <span class="type type-{{ $a->type }}">{{ strtoupper($a->type) }}:</span>
                                 <span class="announcement-title">{{ $a->title }}</span>
                             </span>
                             <span class="announcement-sep"
@@ -22,8 +22,39 @@
 </div>
 
 
+{{-- <style>
+    .teleprompter-wrapper {
+        overflow: hidden;
+        width: 100%;
+    }
 
+    .teleprompter-track {
+        display: flex;
+        flex-wrap: nowrap;
+        /* force single row */
+        white-space: nowrap;
+        will-change: transform;
+    }
 
+    .teleprompter-content {
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+
+    .announcement-item,
+    .announcement-sep {
+        flex-shrink: 0;
+        /* CRITICAL */
+        white-space: nowrap;
+    }
+
+    .teleprompter-wrapper:hover {
+        cursor: pointer;
+    }
+</style> --}}
+
+{{--
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const wrappers = document.querySelectorAll('[data-teleprompter]');
@@ -101,6 +132,67 @@
                     measure();
                 });
             }
+        });
+    });
+</script> --}}
+<script>
+    function TeleprompterMarquee(wrapper) {
+        if (typeof wrapper === 'string') wrapper = document.querySelector(wrapper);
+        if (!wrapper) return;
+
+        const track = wrapper.querySelector('[data-track]');
+        const content = wrapper.querySelector('[data-content]');
+        if (!track || !content) return;
+
+        // Interpret speed as pixels per second. Use a sensible default (slower).
+        const rawSpeed = parseFloat(wrapper.dataset.speed || 30);
+        const speed = isNaN(rawSpeed) ? 30 : rawSpeed;
+
+        // Measure single content unit before cloning so we know the wrap width.
+        const unitWidth = content.scrollWidth || 0;
+
+        // Clone content until track is wide enough to scroll smoothly.
+        let trackWidth = track.scrollWidth || 0;
+        const minWidth = (wrapper.clientWidth || 0) * 2;
+        while (trackWidth < minWidth) {
+            const children = Array.from(content.querySelectorAll(':scope > *'));
+            children.forEach(el => content.appendChild(el.cloneNode(true)));
+            trackWidth = track.scrollWidth || 0;
+        }
+
+        const wrapWidth = unitWidth || (trackWidth / 2) || 1;
+
+        // Start from the right edge so items enter from the right.
+        let pos = wrapper.clientWidth || 0;
+        let paused = false;
+
+        wrapper.addEventListener('mouseenter', () => paused = true);
+        wrapper.addEventListener('mouseleave', () => paused = false);
+
+        let last = 0;
+
+        function animate(now) {
+            if (!last) last = now;
+            const dt = Math.min(0.05, (now - last) / 1000);
+            last = now;
+
+            if (!paused) {
+                pos -= speed * dt;
+
+                // Wrap by the original unit width to create a seamless loop.
+                while (pos <= -wrapWidth) pos += wrapWidth;
+
+                track.style.transform = `translateX(${Math.round(pos)}px)`;
+            }
+            requestAnimationFrame(animate);
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('load', () => {
+        document.querySelectorAll('[data-teleprompter]').forEach(el => {
+            TeleprompterMarquee(el);
         });
     });
 </script>

@@ -7,30 +7,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Setting;
-
-
 class SettingController extends Controller
 {
-    protected $image;
-
     public function __construct()
     {
-        // Use Imagick if available, otherwise fallback to GD
-        // Imagick is preferred as it has better format support
-        if (extension_loaded('imagick')) {
-            $this->image = new ImageManager(\Intervention\Image\Drivers\Imagick\Driver::class);
-        } else {
-            // Check GD JPEG support before using GD driver
-            $gdInfo = gd_info();
-            $hasJpegSupport = isset($gdInfo['JPEG Support']) && $gdInfo['JPEG Support'];
-
-            if (!$hasJpegSupport) {
-                // If GD doesn't have JPEG support, we'll need to handle this in processImage
-                \Log::warning('GD library does not have JPEG support. Some image formats may not work correctly.');
-            }
-
-            $this->image = new ImageManager(\Intervention\Image\Drivers\Gd\Driver::class);
-        }
+        // no-op constructor — ImageManager and GD removed per requirements
     }
 
     /* ===============================
@@ -52,7 +33,31 @@ class SettingController extends Controller
             (int) filter_var($b, FILTER_SANITIZE_NUMBER_INT)
         );
 
-        return view('backend.logo.index', compact('settings', 'sliders'));
+        // Build public URLs for any stored images so the view can render previews.
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+        $base = request()->getSchemeAndHttpHost();
+        $imageUrls = [];
+        foreach ($settings as $k => $v) {
+            if (!$v) {
+                $imageUrls[$k] = '';
+                continue;
+            }
+            $publicPath = ltrim($v, '/');
+            // Build URL using the current request host so previews work when accessing by IP
+            $imageUrls[$k] = $base . '/storage/' . $publicPath;
+        }
+
+        $sliderInitialUrls = [];
+        foreach ($sliders as $k => $v) {
+            if (!$v) {
+                $sliderInitialUrls[$k] = '';
+                continue;
+            }
+            $publicPath = ltrim($v, '/');
+            $sliderInitialUrls[$k] = $base . '/storage/' . $publicPath;
+        }
+
+        return view('backend.logo.index', compact('settings', 'sliders', 'imageUrls', 'sliderInitialUrls'));
     }
 
     /* ===============================
@@ -81,12 +86,29 @@ class SettingController extends Controller
         Setting::setValue('logo_color', $color);
         Setting::setValue('logo_color_hex', $color);
 
+        // Invalidate caches first, we'll repopulate after changes.
         Cache::forget('settings');
         Cache::forget('sliders');
 
         try {
             $this->handleLogo($request);
             $this->handleSliders($request);
+
+            // Rebuild caches for quick access elsewhere in the app
+            $settingsArr = Setting::pluck('value', 'key')->toArray();
+            Cache::put('settings', $settingsArr);
+
+            $sliders = array_filter(
+                $settingsArr,
+                fn ($v, $k) => preg_match('/^slider\d+$/', $k),
+                ARRAY_FILTER_USE_BOTH
+            );
+            uksort($sliders, fn ($a, $b) =>
+                (int) filter_var($a, FILTER_SANITIZE_NUMBER_INT)
+                <=>
+                (int) filter_var($b, FILTER_SANITIZE_NUMBER_INT)
+            );
+            Cache::put('sliders', $sliders);
         } catch (\RuntimeException $e) {
             return redirect()
                 ->route('admin.events.logo')
@@ -118,14 +140,10 @@ class SettingController extends Controller
 
         if ($existing) Storage::disk('public')->delete($existing);
 
-        $path = $this->processImage(
-            $request->file($key),
-            300, // logo width
-            90   // logo quality
-        );
+        $path = $this->processImage($request->file($key));
 
         Setting::setValue($key, $path);
-        Cache::forget('settings');
+        // cache will be rebuilt by caller
     }
 
     /* ===============================
@@ -165,76 +183,33 @@ class SettingController extends Controller
 
             if ($existing) Storage::disk('public')->delete($existing);
 
-            $path = $this->processImage(
-                $request->file($key),
-                1200, // slider width
-                80    // slider quality
-            );
+            $path = $this->processImage($request->file($key));
 
             Setting::setValue($key, $path);
         }
 
         $this->compactSliders();
-        Cache::forget('sliders');
+        // cache will be rebuilt by caller
     }
 
     /* ===============================
      * DEPLOYMENT-SAFE IMAGE HANDLER
      * (GD only | PNG fallback if JPEG not supported)
      * =============================== */
-    private function processImage($file, int $width, int $quality): string
+    private function processImage($file): string
     {
-        // Check GD capabilities
-        $gdInfo = gd_info();
-        $hasJpegSupport = isset($gdInfo['JPEG Support']) && $gdInfo['JPEG Support'];
-        $hasPngSupport = isset($gdInfo['PNG Support']) && $gdInfo['PNG Support'];
-
-        if (!$hasPngSupport) {
-            throw new \RuntimeException('GD library does not support PNG format. Please install PNG support for GD.');
+        // Simplified: store uploaded file as-is under `settings/` on the public disk.
+        // This removes the need for Intervention/Image and GD extensions.
+        if (!$file || !$file->isValid()) {
+            throw new \RuntimeException('Uploaded file is invalid');
         }
 
-        // Detect the input file type
-        $mimeType = $file->getMimeType();
-        $isJpeg = in_array($mimeType, ['image/jpeg', 'image/jpg']);
-
-        // If input is JPEG but JPEG support is not available, we cannot process it
-        if ($isJpeg && !$hasJpegSupport) {
-            throw new \RuntimeException(
-                'Cannot process JPEG image. GD library does not have JPEG support. ' .
-                'Please convert your image to PNG format before uploading, or install JPEG support for GD. ' .
-                'On Windows, you may need to enable JPEG support in php.ini or install a PHP build with JPEG support compiled in.'
-            );
-        }
-
-        // Determine output format: use JPEG if supported, otherwise PNG
-        $ext = $hasJpegSupport ? 'jpg' : 'png';
-        $filename = uniqid() . '.' . $ext;
+        $ext = $file->getClientOriginalExtension() ?: $file->extension() ?: 'jpg';
+        $filename = uniqid('s_') . '.' . $ext;
         $path = 'settings/' . $filename;
 
-        try {
-            // Use read() instead of make() in v3
-            $image = $this->image
-                ->read($file->getRealPath())
-                ->resize($width, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
-                ->encode($ext, $quality);
-
-            Storage::disk('public')->put($path, (string) $image);
-        } catch (\Exception $e) {
-            // If reading fails (e.g., trying to read JPEG without support), provide helpful error
-            if (strpos($e->getMessage(), 'imagecreatefromjpeg') !== false || $isJpeg) {
-                throw new \RuntimeException(
-                    'Cannot process JPEG image. GD library does not have JPEG support. ' .
-                    'Please convert your image to PNG format before uploading, or install JPEG support for GD. ' .
-                    'Original error: ' . $e->getMessage()
-                );
-            }
-
-            // For other errors, rethrow as-is
-            throw $e;
-        }
+        // Store file in public disk
+        Storage::disk('public')->putFileAs('settings', $file, $filename);
 
         return $path;
     }
