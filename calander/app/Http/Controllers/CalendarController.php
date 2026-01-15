@@ -13,13 +13,13 @@ class CalendarController extends Controller
 {
     public function index(){
 
-        $now =NepaliDate::create(Carbon::now('Asia/Kathmandu'))->toBS();
-   
+//         $now =NepaliDate::create(Carbon::now('Asia/Kathmandu'))->toBS();
 
-$NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toBS(); // 2082-02-04
-// NepaliDate::create(\Carbon\Carbon::now())->toFormattedEnglishBSDate(); // 4 Jestha 2082, Sunday
-// $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toFormattedNepaliBSDate(); // ४ जेठ २०८२, आइतवार
-                $details=toDetailBS(\carbon\carbon::now('Asia/Kathmandu'));
+
+// $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toBS(); // 2082-02-04
+// // NepaliDate::create(\Carbon\Carbon::now())->toFormattedEnglishBSDate(); // 4 Jestha 2082, Sunday
+// // $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toFormattedNepaliBSDate(); // ४ जेठ २०८२, आइतवार
+//                 $details=toDetailBS(\carbon\carbon::now('Asia/Kathmandu'));
 
                 $nowAt = \Carbon\Carbon::now('Asia/Kathmandu');
 
@@ -36,7 +36,7 @@ $announcements = Cache::remember('announcement_bar', 3600, function () use ($now
         })
         ->orderByDesc('priority')
         ->orderByDesc('start_at')
-     
+
         ->get();
 });
     //    dd($settings);
@@ -57,13 +57,13 @@ $announcements = Cache::remember('announcement_bar', 3600, function () use ($now
         if($response->failed()){
              return response()->json(['error' => 'Failed to fetch events'], 500);
                     }
-                    
-                
+
+
                      return $response->json();
     }
     public function addMonthData(Request $request, $month){
         if($request->isMethod('post')){
-     
+
 
          foreach($request ->input('data',[]) as $bsDate =>$payload){
             [$bsYear , $bsMonth, $bsDay] = array_map('intval', explode('-', $bsDate));
@@ -85,22 +85,22 @@ $announcements = Cache::remember('announcement_bar', 3600, function () use ($now
                 );
          }
          return back()->with('success','Month data saved successfully.');
-        
+
         }
-        $response= Http::get('http://localhost:3000/api/calendar/summary');
-        if($response->failed()){
-             return response()->json(['error' => 'Failed to fetch events'], 500);
-                    }
-        $calendarSummary = collect($response->json('calendarSummary'));
-        $monthData=$calendarSummary->firstWhere('monthIndex', (int)$month);
-        if(!$monthData){
-            abort(404, 'Month data not found');
-        }
-        $dayByDate=collect($monthData['days'])->mapWithKeys(function($day){
-         [$y,$m,$d]=explode('-',$day['nepaliDate']);
-         $normalizedKey= sprintf('%d-%d-%d',$y,(int)$m,(int)$d);
-         return [$normalizedKey => $day];
-        });
+        // $response= Http::get('http://localhost:3000/api/calendar/summary');
+        // if($response->failed()){
+        //      return response()->json(['error' => 'Failed to fetch events'], 500);
+        //             }
+        // $calendarSummary = collect($response->json('calendarSummary'));
+        // $monthData=$calendarSummary->firstWhere('monthIndex', (int)$month);
+        // if(!$monthData){
+        //     abort(404, 'Month data not found');
+        // }
+        // $dayByDate=collect($monthData['days'])->mapWithKeys(function($day){
+        //  [$y,$m,$d]=explode('-',$day['nepaliDate']);
+        //  $normalizedKey= sprintf('%d-%d-%d',$y,(int)$m,(int)$d);
+        //  return [$normalizedKey => $day];
+        // });
         $daysInMonth =$request->query('days');
         $year=$request->query('year');
 
@@ -110,10 +110,10 @@ $announcements = Cache::remember('announcement_bar', 3600, function () use ($now
             ->keyBy(function ($item) {
                 return sprintf('%d-%d-%d', $item->bs_year, (int)$item->bs_month, (int)$item->bs_day);
             });
-           
+
         // Display the form to add data for the specified month
         return view('backend.month_data', ['month' => $month,'events' => $events
-        , 'daysInMonth' => $daysInMonth, 'data' => $dayByDate, 'year' => $year]);
+        , 'daysInMonth' => $daysInMonth, 'year' => $year]);
     }
     public function showMonthData($month){
         $response=Http::get('http://localhost:3000/api/calendar/summary');
@@ -130,7 +130,7 @@ $announcements = Cache::remember('announcement_bar', 3600, function () use ($now
          $normalizedKey= sprintf('%d-%d-%d',$y,(int)$m,(int)$d);
          return [$normalizedKey => $day];
         });
-      
+
         return response()->json($dayByDate);
     }
     public function getCalendarData($year, $month){

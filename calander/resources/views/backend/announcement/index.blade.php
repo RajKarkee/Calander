@@ -2,15 +2,15 @@
 @section('content')
     <style>
         /* *, *::before, *::after { box-sizing: border-box; }
-                          :root { color-scheme: light; }
+                                      :root { color-scheme: light; }
 
-                          body {
-                           font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-                           background: #f7f7fb;
-                           color: #111827;
-                           margin: 0;
-                           padding: 24px;
-                          } */
+                                      body {
+                                       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+                                       background: #f7f7fb;
+                                       color: #111827;
+                                       margin: 0;
+                                       padding: 24px;
+                                      } */
     </style>
 
 
@@ -144,7 +144,7 @@
                     <div class="actions">
                         <button type="submit">{{ $editing ? 'Update' : 'Create' }}</button>
                         @if ($editing)
-                            <a class="btn-lite" href="{{ route('announcements.index') }}">Cancel</a>
+                            <a class="btn-lite" href="{{ route('admin.announcements.index') }}">Cancel</a>
                         @endif
                     </div>
                 </form>

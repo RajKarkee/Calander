@@ -10,7 +10,7 @@
 
         <h1>Add Events for Month: {{ $month }}</h1>
 
-        <form method="POST" action="{{ route('add.month.data', ['month' => $month]) }}" id="monthForm">
+        <form method="POST" action="{{ route('admin.add.month.data', ['month' => $month]) }}" id="monthForm">
             @csrf
             <input type="hidden" name="month" value="{{ $month }}">
             <table border="1" cellpadding="10" id="calendarTable">

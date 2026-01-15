@@ -35,5 +35,5 @@ Route::middleware(['admin'])->name('admin.')->group(function () {
 
 Route::get('/', [CalendarController::class, 'index'])->name('calendar.index');
 Route::get('/calendar/data/{year}/{month}', [CalendarController::class, 'getCalendarData'])->name('calendar.data');
-Route::get('/calendar/days/{bsDate}', [CalendarController::class, 'getDayDetails'])->name('calendar.day.details'); 
+Route::get('/calendar/days/{bsDate}', [CalendarController::class, 'getDayDetails'])->name('calendar.day.details');
 
