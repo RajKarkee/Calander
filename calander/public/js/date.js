@@ -351,10 +351,17 @@ function renderUpcomingDays(events) {
 
 document.addEventListener('DOMContentLoaded', function () {
     const today = NepaliFunctions.BS.GetCurrentDate();
+    const pathparts = window.location.pathname.split('/').filter(Boolean);
     let currentYear = today.year;
     let currentMonth = today.month;
     // dropdownsCalendar(currentYear, currentMonth);
     // renderCalendar(currentYear, currentMonth);
+    if (pathparts.length === 3 && pathparts[0] === 'calendar') {
+        const year = parseInt(pathparts[1], 10);
+        const month = parseInt(pathparts[2], 10);
+        if (!isNaN(year)) currentYear = year;
+        if (!isNaN(month)) currentMonth = month;
+    }
     syncUI();
 
     document.getElementById('selectYear').addEventListener('change', (e) => {
@@ -394,7 +401,8 @@ document.addEventListener('DOMContentLoaded', function () {
         renderCalendar(currentYear, currentMonth);
         dropdownsCalendar(currentYear, currentMonth);
         updateCalendarHeader(currentYear, currentMonth);
-
+        updatePageTitle(currentYear, currentMonth);
+        updateURL(currentYear, currentMonth);
         // Bind holidays dropdown immediately (before async fetch completes)
         renderHolidaysCard({});
         const events = await fetchCalendarData(currentYear, currentMonth);
@@ -476,6 +484,17 @@ function bsToAdDate(bsYear, bsMonth, bsDay) {
     const adDateStr = NepaliFunctions.BS2AD(`${bsYear}-${bsMonth}-${bsDay}`);
     return adDateStr ? new Date(adDateStr) : null;
 }
+//title
+function updatePageTitle(bsYear, bsMonth) {
+    const nepMonth = NepaliFunctions.BS.GetMonthInUnicode(bsMonth - 1);
+    const nepYear = NepaliFunctions.ConvertToUnicode(bsYear);
+    document.title = `क्यालेन्डर - ${nepMonth} ${nepYear}`;
+}
+//url
+function updateURL(bsYear, bsMonth) {
+    const newUrl = `/calendar/${bsYear}/${String(bsMonth).padStart(2, '0')}`;
+    window.history.pushState({}, '', newUrl);
+}
 
 function todayCard() {
     const today = NepaliFunctions.BS.GetCurrentDate();
@@ -488,7 +507,8 @@ function todayCard() {
    <p class="english-date">अंग्रेजी: ${new Date(NepaliFunctions.BS2AD(`${today.year}-${today.month}-${today.day}`)).toLocaleDateString('en-US')}</p>
 </div>`;
     const todayBtn = document.getElementById('calendar').innerHTML = html;
-
+    updatePageTitle(currentYear, currentMonth);
+    updateURL(currentYear, currentMonth);
 }
 $(document).ready(function () {
     $('#todayBtn').on('click', function () {
@@ -511,6 +531,8 @@ function goToToday() {
     let currentYear = today.year;
     let currentMonth = today.month;
     renderCalendar(currentYear, currentMonth);
+    updatePageTitle(currentYear, currentMonth);
+    updateURL(currentYear, currentMonth);
 }
 let conversionType = 'nepaliToEnglish';
 document.querySelectorAll('input[name="conversionType"]').forEach((elem) => {

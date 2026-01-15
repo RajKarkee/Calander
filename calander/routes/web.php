@@ -33,7 +33,7 @@ Route::middleware(['admin'])->name('admin.')->group(function () {
     Route::delete('/admin/announcements/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
 });
 
-Route::get('/', [CalendarController::class, 'index'])->name('calendar.index');
+Route::get('/calendar/{year?}/{month?}', [CalendarController::class, 'index'])->name('calendar.index')->where(['year'=> '\d{4}','month'=>'0?[1-9]|1[0-2]']);
 Route::get('/calendar/data/{year}/{month}', [CalendarController::class, 'getCalendarData'])->name('calendar.data');
 Route::get('/calendar/days/{bsDate}', [CalendarController::class, 'getDayDetails'])->name('calendar.day.details');
 

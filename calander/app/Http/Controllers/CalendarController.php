@@ -11,37 +11,31 @@ use Illuminate\Support\Facades\Cache;
 
 class CalendarController extends Controller
 {
-    public function index(){
-
-//         $now =NepaliDate::create(Carbon::now('Asia/Kathmandu'))->toBS();
+    public function index($year = null, $month = null){
 
 
-// $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toBS(); // 2082-02-04
-// // NepaliDate::create(\Carbon\Carbon::now())->toFormattedEnglishBSDate(); // 4 Jestha 2082, Sunday
-// // $NepaliDate=NepaliDate::create(\Carbon\Carbon::now())->toFormattedNepaliBSDate(); // ४ जेठ २०८२, आइतवार
-//                 $details=toDetailBS(\carbon\carbon::now('Asia/Kathmandu'));
+        $nowAt = \Carbon\Carbon::now('Asia/Kathmandu');
 
-                $nowAt = \Carbon\Carbon::now('Asia/Kathmandu');
-
-$announcements = Cache::remember('announcement_bar', 3600, function () use ($nowAt) {
-    return DB::table('announcements')
-        ->where('status', 1)
+            $announcements = Cache::remember('announcement_bar', 3600, function () use ($nowAt) {
+                return DB::table('announcements')
+                ->where('status', 1)
                 ->where(function ($q) use ($nowAt) {
-            $q->whereNull('start_at')
-                            ->orWhere('start_at', '<=', $nowAt);
-        })
+                $q->whereNull('start_at')
+                ->orWhere('start_at', '<=', $nowAt);
+                })
                 ->where(function ($q) use ($nowAt) {
-            $q->whereNull('end_at')
-                            ->orWhere('end_at', '>=', $nowAt);
+                $q->whereNull('end_at')
+                ->orWhere('end_at', '>=', $nowAt);
         })
         ->orderByDesc('priority')
         ->orderByDesc('start_at')
 
         ->get();
 });
+
     //    dd($settings);
         // dd($NepaliDate,$now,$detailsnm);
-        return view('calendar.layout.app',compact('announcements'));
+        return view('calendar.layout.app',compact('announcements','year','month'));
     }
     public function adminIndex(Request $request){
         if($request->isMethod('post')){
