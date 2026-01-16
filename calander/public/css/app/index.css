@@ -758,7 +758,7 @@
   display: block;
 }
 .calendar .calendar-dates li.today {
-  background: #b71c1c;
+  background: #6399e0;
   color: #fff;
 }
 .calendar .calendar-dates li.today .nep,
@@ -767,7 +767,6 @@
   color: #fff;
 }
 .calendar .calendar-dates li.saturday {
-  background: #dc3545;
   color: #fff;
 }
 .calendar .calendar-dates li.saturday span {
@@ -775,7 +774,7 @@
 }
 .calendar .calendar-dates li.today.saturday {
   background: #8e0000;
-  color: #fff;
+  color: #00668f !important;
 }
 .calendar .calendar-dates li.saturday:hover span {
   color: #fff !important;
