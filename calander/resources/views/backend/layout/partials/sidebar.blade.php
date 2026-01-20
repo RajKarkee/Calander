@@ -4,7 +4,7 @@
        </div>
 
        <nav class="sidebar-nav">
-           <ul class="nav-list">
+           <ul class="nav-list" {{ request()->routeIs('admin.index') ? 'active' : '' }}>
                <!-- Dashboard -->
                <li class="nav-item">
                    <a href="#s" class="nav-link">
@@ -16,12 +16,6 @@
                <!-- Content Section -->
                <li class="nav-section-title">Content</li>
 
-               <li class="nav-item  {{ request()->routeIs('admin.index') ? 'active' : '' }} ">
-                   <a href="{{ route('admin.index') }}" class="nav-link">
-                       <i class="fas fa-plus-circle"></i>
-                       <span>Add Events</span>
-                   </a>
-               </li>
                <li class='nav-item {{ request()->routeIs('admin.announcements.index') ? 'active' : '' }}'>
                    <a href='{{ route('admin.announcements.index') }}' class='nav-link'>
                        <i class='fas fa-bullhorn'></i>

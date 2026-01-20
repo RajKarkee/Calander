@@ -8,16 +8,16 @@
            text-align: left;
            border-bottom: 2px solid #b71c1c;
            font-weight: normal;
-           font-family: 'Ek Mukta', open_sansbold;
+           font-family: 'Mukta', open_sanscondensed, sans-serif;
        }
-    
+
         h2 span {
            color: #fff;
            font-size: 17px;
            padding: 5px 0;
            display: block;
        }
-    
+
         h2 a {
            text-decoration: none;
            padding-left: 10px;
@@ -32,7 +32,7 @@
               overflow-y: auto;
     -webkit-overflow-scrolling: touch;
        }
-   
+
        ul.upcomming-days li {
            border-bottom: 1px solid #dbdbdb;
            padding: 10px;
@@ -42,7 +42,7 @@
     gap: 10px;
     align-items: flex-start;
        }
-   
+
        ul.upcomming-days li .date {
            /* font-size: 13px; */
            float: left;
@@ -56,25 +56,25 @@
             flex-shrink: 0;
 
        }
-   
+
        ul.upcomming-days li .date span {
            font-size: 15px;
            display: block;
        }
-   
+
        ul.upcomming-days li .info {
            font-size: 13px;
            line-height: 16px;
            color: #666;
            display: table;
            padding-left: 10px;
-           font-family: 'EK Mukta';
+           font-family: 'Mukta';
            font-weight: 400px;
            //added
             display: block;
     padding-left: 0;
        }
-   
+
        ul.upcomming-days li .info span {
            font-size: 16px;
            color: #2382bc;
@@ -82,7 +82,7 @@
            padding-bottom: 5px;
            line-height: 22px;
        }
-   
+
        ul.upcomming-days li .info span a {
            text-decoration: none;
            color: #333;

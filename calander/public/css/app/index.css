@@ -612,7 +612,7 @@
   text-align: left;
   border-bottom: 2px solid #b71c1c;
   font-weight: normal;
-  font-family: "Ek Mukta", open_sansbold;
+  font-family: "Mukta", open_sanscondensed, sans-serif;
 }
 .module h2 span {
   color: #fff;
@@ -663,7 +663,7 @@
   color: #666;
   display: table;
   padding-left: 10px;
-  font-family: "EK Mukta";
+  font-family: "Mukta";
   font-weight: 400px;
   display: block;
   padding-left: 0;
