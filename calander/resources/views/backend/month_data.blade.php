@@ -99,12 +99,6 @@
     @push('scripts')
         <script src={{ asset('js/nepali.datepicker.min.js') }}></script>
         <script>
-            // const daysInMonth = NepaliFunctions.BS.GetDaysInMonth({{ $year }}, {{ $month }});
-            // document.querySelectorAll('.addate').forEach((td, index) => {
-            //     const adDate = NepaliFunctions.BS2AD(`{{ $year }}-{{ $month }}-${index + 1}`);
-            //     td.innerText = adDate;
-            //     // `${adDate.year}-${String(adDate.month).padStart(2, '0')}-${String(adDate.day).padStart(2, '0')}`;
-            // });
             document.querySelectorAll('#calendarTable tr[data-date]').forEach((row, index) => {
 
                 const bsDate = row.getAttribute('data-date');
